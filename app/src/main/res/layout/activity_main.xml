@@ -2,6 +2,33 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                tools:context=".MainActivity"
+    >
+    <ViewFlipper
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewFlipper"
+        android:layout_gravity="center"
+        android:touchscreenBlocksFocus="true">
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/layout_recommend"
+            android:id="@+id/recommendList" />
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/layout_main"
+            android:id="@+id/home" />
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/layout_timeline"
+            android:id="@+id/timelineList" />
+
+    </ViewFlipper>
 
 </FrameLayout>

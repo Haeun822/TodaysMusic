@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#e8b54d"
+              android:weightSum="11"
+              android:stretchColumns="*"
+              android:id="@+id/layout_loading">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today&apos;s Music"
+        android:id="@+id/Label_app"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40dp"
+        android:layout_weight="6"
+        android:gravity="center"/>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Now Loading"
+            android:id="@+id/Label_Loading"
+            android:layout_column="1"
+            android:layout_span="3"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:visibility="invisible"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="5"
+        android:visibility="visible"
+        android:id="@+id/row_id">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:id="@+id/Label_ID"
+            android:gravity="center|right"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_column="0"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editID"
+            android:layout_gravity="center_vertical"
+            android:layout_column="1"
+            android:layout_span="3"
+            android:lines="1"
+            android:textSize="15dp"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:gravity="center|right"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_column="0"
+            android:text="ID"
+            android:textColor="#e8b54d"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="5"
+        android:visibility="visible"
+        android:id="@+id/row_pw">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PW"
+            android:id="@+id/Label_PW"
+            android:gravity="center|right"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_column="0"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editPW"
+            android:layout_gravity="center_vertical"
+            android:layout_column="1"
+            android:layout_span="3"
+            android:lines="1"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="5"
+        android:visibility="visible"
+        android:id="@+id/row_buttons">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:id="@+id/Button_Register"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:onClick="onClick"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="    Login    "
+            android:id="@+id/Button_Login"
+            android:layout_column="3"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:clickable="true"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="5">
+    </TableRow>
+
+</TableLayout>
