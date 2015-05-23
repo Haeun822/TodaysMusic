@@ -3,12 +3,13 @@ package kookmin.todaysmusic;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import kookmin.todaysmusic.Utils.Font;
+import kookmin.todaysmusic.Utils.Server;
 
 public class LoadingActivity extends Activity{
 
@@ -22,10 +23,24 @@ public class LoadingActivity extends Activity{
 
     }
 
+    public void registerUser(String ID){
+        findViewById(R.id.row_id).setVisibility(View.INVISIBLE);
+        findViewById(R.id.row_pw).setVisibility(View.INVISIBLE);
+        findViewById(R.id.row_buttons).setVisibility(View.INVISIBLE);
+        findViewById(R.id.Label_Loading).setVisibility(View.VISIBLE);
+
+        User.ID = ID;
+        User.registerMusicInDevice(getApplicationContext());
+
+        Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void onClick(View view){
         int id = view.getId();
-        String ID = ((TextView)findViewById(R.id.editID)).getText().toString();
-        String PW = ((TextView)findViewById(R.id.editPW)).getText().toString();
+        final String ID = ((TextView)findViewById(R.id.editID)).getText().toString();
+        final String PW = ((TextView)findViewById(R.id.editPW)).getText().toString();
 
         if(id == R.id.Button_Login){
             if(ID.isEmpty() || PW.isEmpty()){
@@ -57,19 +72,31 @@ public class LoadingActivity extends Activity{
             }
             else{
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setMessage("[" + ID + "]로 등록합니다").setCancelable(false);
-                alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //TODO Register progress
-                    }
-                }).setNegativeButton("취소", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert.show();
+                if(Server.checkDuplicateID(ID) == true) {
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.setMessage("이미 등록된 아이디입니다.");
+                    alert.show();
+                }
+                else {
+                    alert.setMessage("[" + ID + "]로 등록합니다").setCancelable(false);
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            registerUser(ID);
+                        }
+                    }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.show();
+                }
             }
         }
     }
