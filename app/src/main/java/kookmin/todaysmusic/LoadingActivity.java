@@ -23,15 +23,44 @@ public class LoadingActivity extends Activity{
 
     }
 
-    public void registerUser(String ID){
-        findViewById(R.id.row_id).setVisibility(View.INVISIBLE);
-        findViewById(R.id.row_pw).setVisibility(View.INVISIBLE);
-        findViewById(R.id.row_buttons).setVisibility(View.INVISIBLE);
-        findViewById(R.id.Label_Loading).setVisibility(View.VISIBLE);
+    public void registerUser(String ID, String PW){
+        if(Server.register(ID, PW)) {
+            findViewById(R.id.row_id).setVisibility(View.INVISIBLE);
+            findViewById(R.id.row_pw).setVisibility(View.INVISIBLE);
+            findViewById(R.id.row_buttons).setVisibility(View.INVISIBLE);
+            findViewById(R.id.Label_Loading).setVisibility(View.VISIBLE);
 
-        User.ID = ID;
-        User.registerMusicInDevice(getApplicationContext());
+            User.ID = ID;
+            User.registerMusicInDevice(getApplicationContext());
 
+            goMainActivity();
+        }
+    }
+
+    public void login(String ID, String PW){
+        if(Server.login(ID, PW)){
+            findViewById(R.id.row_id).setVisibility(View.INVISIBLE);
+            findViewById(R.id.row_pw).setVisibility(View.INVISIBLE);
+            findViewById(R.id.row_buttons).setVisibility(View.INVISIBLE);
+            findViewById(R.id.Label_Loading).setVisibility(View.VISIBLE);
+
+            User.ID = ID;
+            Server.dataLoading(this);
+        }
+        else{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alert.setMessage("로그인에 실패했습니다.");
+            alert.show();
+        }
+    }
+
+    public void goMainActivity(){
         Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -55,7 +84,7 @@ public class LoadingActivity extends Activity{
                 alert.show();
             }
             else{
-                //TODO Login progress
+                login(ID, PW);
             }
         }
         else if(id == R.id.Button_Register){
@@ -87,7 +116,7 @@ public class LoadingActivity extends Activity{
                     alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            registerUser(ID);
+                            registerUser(ID, PW);
                         }
                     }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                         @Override

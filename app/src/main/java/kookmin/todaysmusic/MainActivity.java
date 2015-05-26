@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 
+import kookmin.todaysmusic.Utils.Font;
+
 
 public class MainActivity extends Activity implements OnGestureListener {
 
@@ -21,6 +23,8 @@ public class MainActivity extends Activity implements OnGestureListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Font.changeFont(findViewById(R.id.viewFlipper));
 
         mGesture = new GestureDetector(this, this);
 
