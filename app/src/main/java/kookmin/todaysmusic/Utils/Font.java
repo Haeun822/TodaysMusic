@@ -13,16 +13,15 @@ public class Font {
         font = Typeface.createFromAsset(context.getAssets(), "fonts/Gasi_M.ttf");
     }
 
-    public static void changeFont(View view){
-        if(view instanceof ViewGroup){
+    public static void changeFont(View view) {
+        if (view instanceof ViewGroup) {
             ViewGroup vg = (ViewGroup) view;
-            for (int i=0; i<vg.getChildCount(); i++){
+            for (int i = 0; i < vg.getChildCount(); i++) {
                 View child = vg.getChildAt(i);
                 changeFont(child);
             }
-        }
-        else if(view instanceof TextView){
-            ((TextView)view).setTypeface(font);
+        } else if (view instanceof TextView) {
+            ((TextView) view).setTypeface(font);
         }
     }
 }
