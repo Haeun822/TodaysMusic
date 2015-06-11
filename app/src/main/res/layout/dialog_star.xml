@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/item_music_image"
+        android:id="@+id/user_image"
         android:src="@drawable/music_blank"
         android:scaleType="fitCenter"
         android:layout_below="@+id/dialog_title"
@@ -40,8 +40,8 @@
         android:id="@+id/textLayout"
         android:gravity="center_vertical"
         android:layout_above="@+id/ratingBar"
-        android:layout_toRightOf="@+id/item_music_image"
-        android:layout_toEndOf="@+id/item_music_image"
+        android:layout_toRightOf="@+id/user_image"
+        android:layout_toEndOf="@+id/user_image"
         android:layout_margin="5dp">
 
         <TextView
@@ -84,7 +84,7 @@
         android:id="@+id/ratingBar"
         android:gravity="center"
         android:layout_weight="1"
-        android:layout_below="@+id/item_music_image"
+        android:layout_below="@+id/user_image"
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"/>
 

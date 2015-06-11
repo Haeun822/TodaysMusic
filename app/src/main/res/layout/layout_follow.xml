@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:weightSum="10"
+             android:orientation="vertical"
+             android:id="@+id/layout_follow">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="내가 등록한 유저"
+        android:id="@+id/Label1"
+        android:layout_weight="1"
+        android:textColor="#ffffff"
+        android:background="#404040"
+        android:textSize="25dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/FollowedList"
+        android:layout_weight="4"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:text="나를 등록한 유저"
+        android:id="@+id/Label2"
+        android:layout_weight="1"
+        android:textColor="#ffffff"
+        android:background="#404040"
+        android:textSize="25dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/FollowerList"
+        android:layout_weight="4"/>
+</LinearLayout>

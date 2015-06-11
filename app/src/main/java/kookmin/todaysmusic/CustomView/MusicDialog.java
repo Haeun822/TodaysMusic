@@ -38,7 +38,7 @@ public class MusicDialog extends Dialog implements View.OnClickListener {
 
         Font.changeFont(findViewById(R.id.dialog_layout));
 
-        musicImage = (ImageView)findViewById(R.id.item_music_image);
+        musicImage = (ImageView)findViewById(R.id.user_image);
         title = (TextView)findViewById(R.id.titleText);
         artist = (TextView)findViewById(R.id.artistText);
         user = (TextView)findViewById(R.id.userText);
@@ -54,6 +54,7 @@ public class MusicDialog extends Dialog implements View.OnClickListener {
         if(music.UserID != null && !music.UserID.isEmpty() && !music.UserID.equals(User.ID)) {
             user.setText(music.UserID + "님이 같이 듣고 싶어합니다.");
             user.setVisibility(View.VISIBLE);
+            ratingView.setCount(-1);
         }
         else if(music.UserID == null || music.UserID.isEmpty()){
 
@@ -62,8 +63,8 @@ public class MusicDialog extends Dialog implements View.OnClickListener {
             toggle.setChecked(music.isShared);
             toggle.setVisibility(View.VISIBLE);
             remove.setVisibility(View.VISIBLE);
+            ratingView.setCount(music.Star);
         }
-        ratingView.setCount(music.Star);
 
         toggle.setOnClickListener(this);
         remove.setOnClickListener(this);

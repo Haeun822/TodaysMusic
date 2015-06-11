@@ -1,6 +1,7 @@
 package kookmin.todaysmusic;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -9,33 +10,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import java.lang.reflect.Field;
+
 import kookmin.todaysmusic.CustomView.MusicDialog;
+import kookmin.todaysmusic.CustomView.SearchDialog;
 import kookmin.todaysmusic.Data.Music;
 import kookmin.todaysmusic.Data.User;
 import kookmin.todaysmusic.Utils.Font;
-import kookmin.todaysmusic.Utils.ListAdapter;
+import kookmin.todaysmusic.Utils.MusicListAdapter;
 import kookmin.todaysmusic.Utils.Server;
 
 
 public class MainActivity extends Activity implements OnGestureListener {
 
     MenuItem addButton;
+    MenuItem listButton;
+    MenuItem followButton;
 
     GestureDetector mGesture;
     ViewFlipper mViewFlipper;
+    int viewChild = 1;
 
     View mainView, recommendView, timeLineView;
 
     ListView recommendList;
-    ListAdapter recommendAdapter;
+    MusicListAdapter recommendAdapter;
     ListView timeLineList;
-    ListAdapter timeLineAdapter;
+    MusicListAdapter timeLineAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,7 @@ public class MainActivity extends Activity implements OnGestureListener {
         Font.changeFont(findViewById(R.id.viewFlipper));
 
         mViewFlipper = (ViewFlipper)findViewById(R.id.viewFlipper);
-        mViewFlipper.setDisplayedChild(1);
+        mViewFlipper.setDisplayedChild(viewChild);
         mainView = mViewFlipper.getChildAt(1);
         recommendView = mViewFlipper.getChildAt(0);
         timeLineView = mViewFlipper.getChildAt(2);
@@ -54,7 +62,7 @@ public class MainActivity extends Activity implements OnGestureListener {
 
         recommendList = (ListView)recommendView.findViewById(R.id.list_recommend);
         recommendList.setSelector(R.drawable.list_selector);
-        recommendAdapter = new ListAdapter(this, 0, User.recommendList, Music.SERVER_REC);
+        recommendAdapter = new MusicListAdapter(this, 0, User.recommendList, Music.SERVER_REC);
         recommendList.setAdapter(recommendAdapter);
         recommendList.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -64,7 +72,7 @@ public class MainActivity extends Activity implements OnGestureListener {
 
         timeLineList = (ListView)timeLineView.findViewById(R.id.list_timeline);
         timeLineList.setSelector(R.drawable.list_selector);
-        timeLineAdapter = new ListAdapter(this, 0, User.timeLine, Music.USER_REC);
+        timeLineAdapter = new MusicListAdapter(this, 0, User.timeLine, Music.USER_REC);
         timeLineList.setAdapter(timeLineAdapter);
         timeLineList.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent event){
@@ -73,6 +81,18 @@ public class MainActivity extends Activity implements OnGestureListener {
         });
 
         setMainPreview();
+
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class
+                    .getDeclaredField("sHasPermanentMenuKey");
+            if (menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setMainPreview(){
@@ -88,7 +108,7 @@ public class MainActivity extends Activity implements OnGestureListener {
             v.setVisibility(View.VISIBLE);
             m = User.recommendList.get(0);
 
-            i = (ImageView)v.findViewById(R.id.item_music_image);
+            i = (ImageView)v.findViewById(R.id.user_image);
             i.setImageBitmap(m.thumb);
 
             t = (TextView)v.findViewById(R.id.titleText);
@@ -104,7 +124,7 @@ public class MainActivity extends Activity implements OnGestureListener {
                 v.setVisibility(View.VISIBLE);
                 m = User.recommendList.get(1);
 
-                i = (ImageView)v.findViewById(R.id.item_music_image);
+                i = (ImageView)v.findViewById(R.id.user_image);
                 i.setImageBitmap(m.thumb);
 
                 t = (TextView)v.findViewById(R.id.titleText);
@@ -140,8 +160,17 @@ public class MainActivity extends Activity implements OnGestureListener {
 
         v.setVisibility(View.VISIBLE);
 
-        i = (ImageView)v.findViewById(R.id.item_music_image);
+        i = (ImageView)v.findViewById(R.id.user_image);
         i.setImageBitmap(m.thumb);
+
+        if(m.Star != -1) {
+            i = (ImageView) v.findViewById(R.id.starImage);
+            i.setImageBitmap(MusicListAdapter.bitmap_star);
+            t = (TextView) v.findViewById(R.id.starCount);
+            t.setTypeface(Font.font);
+            t.setText(m.Star + "");
+            t.setVisibility(View.VISIBLE);
+        }
 
         t = (TextView)v.findViewById(R.id.titleText);
         t.setTypeface(Font.font);
@@ -160,6 +189,8 @@ public class MainActivity extends Activity implements OnGestureListener {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         addButton = menu.findItem(R.id.action_add);
         addButton.setVisible(false);
+        listButton = menu.findItem(R.id.action_list);
+        followButton = menu.findItem(R.id.action_follow);
         return true;
     }
 
@@ -183,6 +214,24 @@ public class MainActivity extends Activity implements OnGestureListener {
                     });
                 }
             }).start();
+        }
+        else if (id == R.id.action_list){
+            Intent intent = new Intent(MainActivity.this, StaredListActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_follow){
+            Intent intent = new Intent(MainActivity.this, FollowActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.action_add){
+            SearchDialog dialog = new SearchDialog(this);
+            dialog.show();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    refresh();
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);
@@ -225,16 +274,23 @@ public class MainActivity extends Activity implements OnGestureListener {
         mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.appear_from_right));
         mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.disappear_to_left));
         mViewFlipper.showNext();
-        if(mViewFlipper.getDisplayedChild() == 2)
+        viewChild = mViewFlipper.getDisplayedChild();
+        if(viewChild == 2) {
             addButton.setVisible(true);
-
+            listButton.setVisible(false);
+        }
+        followButton.setVisible(true);
     }
 
     private void MovePreviousView() {
         mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.appear_from_left));
         mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.disappear_to_right));
         mViewFlipper.showPrevious();
+        viewChild = mViewFlipper.getDisplayedChild();
+        if(viewChild == 0)
+            followButton.setVisible(false);
         addButton.setVisible(false);
+        listButton.setVisible(true);
     }
 
     public void refresh(){

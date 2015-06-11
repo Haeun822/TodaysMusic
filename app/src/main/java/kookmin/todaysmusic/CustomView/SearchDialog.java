@@ -10,7 +10,6 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -19,12 +18,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import kookmin.todaysmusic.Data.Music;
-import kookmin.todaysmusic.Data.User;
 import kookmin.todaysmusic.MainActivity;
 import kookmin.todaysmusic.R;
 import kookmin.todaysmusic.StaredListActivity;
 import kookmin.todaysmusic.Utils.Font;
-import kookmin.todaysmusic.Utils.ListAdapter;
+import kookmin.todaysmusic.Utils.MusicListAdapter;
 import kookmin.todaysmusic.Utils.Server;
 
 public class SearchDialog extends Dialog implements View.OnClickListener{
@@ -33,7 +31,7 @@ public class SearchDialog extends Dialog implements View.OnClickListener{
     Spinner spinner;
     TextView searchText;
     ListView searchListView;
-    ListAdapter searchListAdapter;
+    MusicListAdapter searchListAdapter;
     ArrayList<Music> searchList;
 
     public SearchDialog(Context context){
@@ -62,8 +60,9 @@ public class SearchDialog extends Dialog implements View.OnClickListener{
 
         searchListView = (ListView)findViewById(R.id.searchView);
         searchList = new ArrayList<Music>();
-        searchListAdapter = new ListAdapter(context, 0, searchList, Music.SEARCH);
+        searchListAdapter = new MusicListAdapter(context, 0, searchList, Music.SEARCH);
         searchListView.setAdapter(searchListAdapter);
+        searchListView.setSelector(R.drawable.list_selector);
         searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

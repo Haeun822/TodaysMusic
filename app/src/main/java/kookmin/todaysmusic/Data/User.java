@@ -14,6 +14,7 @@ public class User {
     public static ArrayList<Music> recommendList = new ArrayList<Music>();
     public static ArrayList<Music> timeLine = new ArrayList<Music>();
     public static ArrayList<String> followed = new ArrayList<String>();
+    public static ArrayList<String> follower = new ArrayList<String>();
 
     public static ArrayList<Pair> getMusicInDevice(Context context){
         Cursor cursor = context.getContentResolver().query(
@@ -26,6 +27,7 @@ public class User {
         while(cursor.moveToNext()){
             String title = cursor.getString(0);
             String artist = cursor.getString(1);
+            if(!title.equals("<unknown>") && !artist.equals("<unknown>"))
             list.add(new Pair(title, artist));
         }
         return list;

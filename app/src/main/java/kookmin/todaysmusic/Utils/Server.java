@@ -78,45 +78,34 @@ public class Server {
                 try {
                     //Register MusicList
                     JSONObject json = new JSONObject();
-                    JSONArray array = new JSONArray();
+                    JSONArray array;
                     ArrayList<Pair> list = User.getMusicInDevice(loadingActivity);
-                    for(int i=0; i<list.size(); i++){
-                        JSONObject jsonTemp = new JSONObject();
-                        jsonTemp.put("Title", list.get(0));
-                        jsonTemp.put("Artist", list.get(1));
-                        array.put(jsonTemp);
+                    for(int i=0; i<=list.size()/15; i++){
+                        array = new JSONArray();
+                        for (int j = i*15; j < (i+1)*15; j++) {
+                            if(j < list.size()) {
+                                JSONObject jsonTemp = new JSONObject();
+                                jsonTemp.put("Title", list.get(j).first);
+                                jsonTemp.put("Artist", list.get(j).second);
+                                jsonTemp.put("Star", 4);
+                                jsonTemp.put("Time", "N");
+                                jsonTemp.put("Feel", "N");
+                                jsonTemp.put("IsShared", false);
+                                array.put(jsonTemp);
+                            }
+                        }
+                        json.put("Musics", array);
+                        json.put("ID", User.ID);
+                        json.put("Type", "Register");
+                        serverConn("MusicList", "JSON=" + json);
                     }
-                    json.put("Musics", array);
-                    json.put("ID", User.ID);
-                    json.put("Type", "Register");
-                    serverConn("MusicList", "JSON=" + json);
 
-                    //GET Recommend
-                    json = new JSONObject();
-                    json.put("ID", User.ID);
-                    json.put("Time", "N");
-                    json.put("Feel", "N");
-
-                    String response = serverConn("Recommend", "JSON=" + json);
-                    json = new JSONObject(response);
-
-                    array = json.getJSONArray("List");
-                    for(int i=0; i<array.length(); i++){
-                        JSONObject jsonTemp = array.getJSONObject(i);
-                        Music music = new Music(jsonTemp.getString("MusicID"));
-                        music.Title = jsonTemp.getString("Title");
-                        music.Artist = jsonTemp.getString("Artist");
-                        music.URL = jsonTemp.getString("URL");
-                        music.Star = jsonTemp.getInt("Star");
-                        music.Time = jsonTemp.getString("Time");
-                        music.Feel = jsonTemp.getString("Feel");
-
-                        User.recommendList.add(music);
-                    }
-                } catch (Exception e) { }
+                    dataLoading(loadingActivity);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
             }
         }).start();
-        loadingActivity.goMainActivity();
     }
 
     public static void dataLoading(final LoadingActivity loadingActivity){
@@ -125,7 +114,7 @@ public class Server {
             public void run() {
                 try {
                     getMusicList();
-                    getFollowed();
+                    getFollow();
                     getTimeLine();
                     getRecommend();
 
@@ -168,7 +157,7 @@ public class Server {
         } catch (Exception e) { }
     }
 
-    public static void getFollowed(){
+    public static void getFollow(){
         try{
             JSONObject json = new JSONObject();
             json.put("Follower", User.ID);
@@ -182,6 +171,21 @@ public class Server {
                 JSONArray array = json.getJSONArray("List");
                 for (int i = 0; i < array.length(); i++) {
                     User.followed.add((String) array.get(i));
+                }
+            }
+
+            json = new JSONObject();
+            json.put("Followed", User.ID);
+            json.put("Type", "Get");
+
+            response = serverConn("Follow", "JSON=" + json);
+            User.follower.clear();
+            if(!response.isEmpty()) {
+                json = new JSONObject(response);
+
+                JSONArray array = json.getJSONArray("List");
+                for (int i = 0; i < array.length(); i++) {
+                    User.follower.add((String) array.get(i));
                 }
             }
         } catch (Exception e) { }
@@ -320,9 +324,7 @@ public class Server {
 
             String response = reader.readLine();
             return response;
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        } catch (Exception e) { }
 
         return "";
     }
@@ -364,5 +366,40 @@ public class Server {
             }
 
         } catch (Exception e) { }
+    }
+
+    public static void searchUser(ArrayList<String> list, String ID){
+        list.clear();
+        try {
+            JSONObject json = new JSONObject();
+            json.put("ID", ID);
+
+            String response = serverConn("UserSearch", "JSON=" + json);
+            if(!response.isEmpty()) {
+                json = new JSONObject(response);
+                JSONArray array = json.getJSONArray("List");
+                for (int i = 0; i < array.length(); i++) {
+                    String temp = array.getString(i);
+                    if(!User.ID.equals(temp))
+                        list.add(temp);
+                }
+            }
+
+        } catch (Exception e) { }
+    }
+
+    public static void follow(final String Follower, final String Followed, final String Type){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject json = new JSONObject();
+                    json.put("Follower", Follower);
+                    json.put("Followed", Followed);
+                    json.put("Type", Type);
+                    serverConn("Follow", "JSON=" + json);
+                } catch (Exception e) { }
+            }
+        }).start();
     }
 }

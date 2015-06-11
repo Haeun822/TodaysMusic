@@ -15,17 +15,16 @@ import java.util.ArrayList;
 
 import kookmin.todaysmusic.Data.Music;
 import kookmin.todaysmusic.R;
-import kookmin.todaysmusic.Utils.Font;
 
-public class ListAdapter extends ArrayAdapter<Music>{
+public class MusicListAdapter extends ArrayAdapter<Music>{
     Context mContext;
 
     private ArrayList<Music> items;
     int type;
 
-    static Bitmap bitmap_star;
+    public static Bitmap bitmap_star;
 
-    public ListAdapter(Context context, int textViewResourceId, ArrayList<Music> items, int type){
+    public MusicListAdapter(Context context, int textViewResourceId, ArrayList<Music> items, int type){
         super(context, textViewResourceId, items);
         mContext = context;
         this.items = items;
@@ -48,7 +47,7 @@ public class ListAdapter extends ArrayAdapter<Music>{
         Music m = items.get(position);
         if(m != null){
             if(m.thumb != null) {
-                ImageView image = (ImageView) view.findViewById(R.id.item_music_image);
+                ImageView image = (ImageView) view.findViewById(R.id.user_image);
                 image.setImageBitmap(m.thumb);
             }
 

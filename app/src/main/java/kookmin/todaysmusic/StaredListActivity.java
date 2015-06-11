@@ -15,12 +15,12 @@ import kookmin.todaysmusic.CustomView.MusicDialog;
 import kookmin.todaysmusic.CustomView.SearchDialog;
 import kookmin.todaysmusic.Data.Music;
 import kookmin.todaysmusic.Data.User;
-import kookmin.todaysmusic.Utils.ListAdapter;
+import kookmin.todaysmusic.Utils.MusicListAdapter;
 
 public class StaredListActivity extends Activity implements AdapterView.OnItemClickListener, Dialog.OnDismissListener{
 
     ListView staredListView;
-    ListAdapter staredListAdapter;
+    MusicListAdapter staredListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class StaredListActivity extends Activity implements AdapterView.OnItemCl
 
         staredListView = (ListView)findViewById(R.id.list_timeline);
         staredListView.setSelector(R.drawable.list_selector);
-        staredListAdapter = new ListAdapter(this, 0, User.staredList, Music.MY_MUSIC);
+        staredListAdapter = new MusicListAdapter(this, 0, User.staredList, Music.MY_MUSIC);
         staredListView.setAdapter(staredListAdapter);
         staredListView.setOnItemClickListener(this);
 

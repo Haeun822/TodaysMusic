@@ -4,16 +4,15 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="13.5dp"
                 android:paddingTop="6.5dp"
-                android:paddingRight="13.5dp"
-                android:paddingBottom="6.5dp"
-    >
+                android:paddingRight="6.5dp"
+                android:paddingBottom="6.5dp" >
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/user_image"
         android:layout_gravity="left|center_vertical"
-        android:src="@drawable/music_blank"
+        android:src="@drawable/people_blank"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"/>
 
@@ -32,11 +31,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Title-Artist"
-            android:id="@+id/titleText"
+            android:text="userID"
+            android:id="@+id/userID"
             android:maxLines="2"
             android:layout_gravity="center_vertical"
-            android:textColor="#ffffff"/>
+            android:elegantTextHeight="false"/>
+
     </LinearLayout>
 
 </RelativeLayout>
