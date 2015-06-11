@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="13.5dp"
+                android:paddingTop="6.5dp"
+                android:paddingRight="13.5dp"
+                android:paddingBottom="6.5dp"
+                android:background="#ffffff"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:id="@+id/dialog_layout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;Music Feedback>"
+        android:id="@+id/dialog_title"
+        android:textColor="#404040"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:singleLine="true"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/item_music_image"
+        android:src="@drawable/music_blank"
+        android:scaleType="fitCenter"
+        android:layout_below="@+id/dialog_title"
+        android:layout_margin="5dp"
+        android:longClickable="true"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:id="@+id/textLayout"
+        android:gravity="center_vertical"
+        android:layout_above="@+id/ratingBar"
+        android:layout_toRightOf="@+id/item_music_image"
+        android:layout_toEndOf="@+id/item_music_image"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Title"
+            android:id="@+id/titleText"
+            android:textColor="#404040"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Artist"
+            android:id="@+id/artistText"
+            android:textColor="#404040"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:id="@+id/userText"
+            android:textColor="#6b7d67"
+            android:visibility="gone"/>
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn = "공유중"
+            android:textOff = "공유안함"
+            android:id="@+id/toggleButton"
+            android:layout_gravity="right"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <kookmin.todaysmusic.CustomView.Rating
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:id="@+id/ratingBar"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_below="@+id/item_music_image"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:id="@+id/button_remove"
+            android:textColor="#404040"
+            android:textSize="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Listen"
+            android:id="@+id/button_listen"
+            android:textColor="#404040"
+            android:textSize="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:id="@+id/button_confirm"
+            android:textColor="#404040"
+            android:textSize="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textIsSelectable="false"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</RelativeLayout>

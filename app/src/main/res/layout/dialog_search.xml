@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="13.5dp"
+                android:paddingTop="6.5dp"
+                android:paddingRight="13.5dp"
+                android:paddingBottom="6.5dp"
+                android:background="#ffffff"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:id="@+id/dialog_layout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;Music Search>"
+        android:id="@+id/dialog_title"
+        android:textColor="#404040"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:singleLine="true"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_title"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/searchBar"
+        android:layout_margin="5dp">
+
+        <Spinner
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/spinner"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchText"
+            android:layout_marginRight="40dp"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/button_search"
+            android:src="@drawable/ic_action_search"
+            android:layout_marginLeft="-40dp"
+            android:onClick="onClick"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="270dp"
+        android:id="@+id/searchView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/searchBar"
+        />
+
+
+</RelativeLayout>

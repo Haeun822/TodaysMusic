@@ -67,7 +67,8 @@
             android:lines="1"
             android:textSize="15dp"
             android:inputType="textPersonName"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:text="testID"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -113,7 +114,8 @@
             android:layout_span="3"
             android:lines="1"
             android:textSize="15dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:text="12345"/>
     </TableRow>
 
     <TableRow

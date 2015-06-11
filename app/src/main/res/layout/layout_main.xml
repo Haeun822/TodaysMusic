@@ -21,8 +21,11 @@
 
             <include
                 layout="@layout/item_recommend_big"
+                android:id="@+id/main_recommend_big"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:onClick="onClick"/>
         </TableRow>
 
         <TableRow
@@ -32,8 +35,11 @@
 
             <include
                 layout="@layout/item_recommend"
+                android:id="@+id/main_recommend_small"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:onClick="onClick"/>
         </TableRow>
     </TableLayout>
 
@@ -102,7 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:onClick="onClick"/>
         </TableRow>
 
         <TableRow
@@ -117,7 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:onClick="onClick"/>
         </TableRow>
 
         <TableRow
@@ -132,7 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:onClick="onClick"/>
         </TableRow>
 
     </TableLayout>

@@ -4,7 +4,7 @@
               android:layout_height="wrap_content"
               android:paddingLeft="13.5dp"
               android:paddingTop="6.5dp"
-              android:paddingRight="13.5dp"
+              android:paddingRight="6.5dp"
               android:paddingBottom="6.5dp"
     >
 
@@ -14,7 +14,8 @@
         android:id="@+id/item_music_image"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/music_blank"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:layout_width="40dp"
@@ -34,7 +35,15 @@
         android:layout_toRightOf="@+id/item_music_image"
         android:layout_toEndOf="@+id/item_music_image"
         android:layout_centerVertical="true"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        android:layout_toLeftOf="@+id/starImage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:id="@+id/timeText"
+            android:textColor="#6b7d67"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +51,15 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title-Artist"
             android:id="@+id/titleText"
+            android:maxLines="2"
             android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:id="@+id/userText"
+            android:textColor="#6b7d67"/>
     </LinearLayout>
 
     <ImageView
@@ -51,7 +68,20 @@
         android:id="@+id/starImage"
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/star_none"
+        android:layout_alignParentRight="false"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/starCount"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/starCount"
+        android:textColor="#e8b54d"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

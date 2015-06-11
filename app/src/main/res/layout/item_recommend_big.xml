@@ -14,7 +14,8 @@
         android:id="@+id/item_music_image"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/music_blank"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -31,26 +32,21 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
             android:id="@+id/titleText"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="25dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Artist"
-            android:id="@+id/textView"
-            android:textColor="#ffffff"/>
+            android:id="@+id/artistText"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="25dp"/>
     </LinearLayout>
-
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ratingBar"
-        android:layout_alignBottom="@+id/item_music_image"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:numStars="6"
-        android:rating="3"
-        style="@style/starRatingBar" />
 
 </RelativeLayout>

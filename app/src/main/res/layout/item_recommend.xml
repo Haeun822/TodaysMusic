@@ -14,7 +14,8 @@
         android:id="@+id/item_music_image"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/music_blank"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,7 +25,8 @@
         android:layout_toRightOf="@+id/item_music_image"
         android:layout_toEndOf="@+id/item_music_image"
         android:layout_centerVertical="true"
-        android:paddingLeft="20dp">
+        android:paddingLeft="20dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,17 +34,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title-Artist"
             android:id="@+id/titleText"
+            android:maxLines="2"
             android:layout_gravity="center_vertical"
             android:textColor="#ffffff"/>
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="28dp"
-        android:layout_height="30dp"
-        android:id="@+id/starImage"
-        android:layout_gravity="right|center_vertical"
-        android:src="@drawable/star_none"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
 
 </RelativeLayout>
